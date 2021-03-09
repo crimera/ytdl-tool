@@ -2,7 +2,7 @@ while [ -n "$1" ]; do # while loop starts
 
 	case "$1" in
 
-	-clip) echo "-a option passed" ;;
+	-clip)  ;;
 
 	-b)
 		param="$2"
@@ -11,9 +11,7 @@ while [ -n "$1" ]; do # while loop starts
 
 		shift
 		;;
-
-	-c) echo "-c option passed" ;;
-
+		
 	--)
 		shift # The double dash makes them parameters
 
