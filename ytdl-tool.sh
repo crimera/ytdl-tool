@@ -2,7 +2,7 @@ while [ -n "$1" ]; do # while loop starts
 
 	case "$1" in
 
-	-a) echo "-a option passed" ;;
+	-clip) echo "-a option passed" ;;
 
 	-b)
 		param="$2"
