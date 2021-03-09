@@ -19,7 +19,7 @@ echo 'Clip Ends To [00:00:__]'
 read end_secs
 
 # Merge the timestamps
-from=$start_hrs:$start_mins:start_secs
+from=$start_hrs:$start_mins:$start_secs
 to=$end_hrs:end_mins:end_secs
 
 ffmpeg -ss $from -to $to -i "$(youtube-dl -f best --get-url $url_test)" -c:v copy -c:a copy out.mp4
