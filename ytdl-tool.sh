@@ -17,9 +17,7 @@ while [ -n "$1" ]; do # while loop starts
 
 		break
 		;;
-
-	*) echo "Option $1 not recognized" ;;
-
+		
 	esac
 
 	shift
