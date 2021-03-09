@@ -2,9 +2,17 @@ while [ -n "$1" ]; do # while loop starts
 
 	case "$1" in
 
-	-clip) ffmpeg -ss $3 -to $4 -i "$(youtube-dl -f best --get-url $2)" -c:v copy -c:a copy $5.mp4 ;;
+	-clip)
+	    test -z $url
+	    if [$? == 0]
+	    then
+	    $url=$2
+        ffmpeg -ss $3 -to $4 -i "$(youtube-dl -f best --get-url $2)" -c:v copy -c:a copy $5.mp4
+        fi
+        ;;
         
 	-title)
+	    url=$2
 		youtube-dl --get-title $2
 		
 		shift
