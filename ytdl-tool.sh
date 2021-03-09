@@ -19,6 +19,8 @@ while [ -n "$1" ]; do # while loop starts
 	    then
 	    url=$2
 		youtube-dl --get-title $2
+		else
+        youtube-dl --get-title $url
 		fi
 		shift
 		;;
