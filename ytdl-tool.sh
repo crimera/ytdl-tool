@@ -5,8 +5,6 @@ while [ -n "$1" ]; do # while loop starts
 	-clip) ffmpeg -ss $3 -to $4 -i "$(youtube-dl -f best --get-url $2)" -c:v copy -c:a copy $5.mp4 ;;
 
 	-title)
-		param="$2"
-
 		echo "-b option passed, with value $param"
 
 		shift
