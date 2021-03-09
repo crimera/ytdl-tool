@@ -9,7 +9,7 @@ while [ -n "$1" ]; do # while loop starts
 	    url=$2
         ffmpeg -ss $3 -to $4 -i "$(youtube-dl -f best --get-url $2)" -c:v copy -c:a copy $5.mp4
         else
-        echo set
+        ffmpeg -ss $2 -to $3 -i "$(youtube-dl -f best --get-url $url)" -c:v copy -c:a copy $4.mp4
         fi
         ;;
         
