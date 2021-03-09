@@ -15,7 +15,6 @@ while [ -n "$1" ]; do # while loop starts
         
 	-title)
 	    test -z $url
-	    echo $?
 	    if (($? == 0))
 	    then
 	    url=$2
