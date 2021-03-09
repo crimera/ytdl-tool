@@ -2,7 +2,7 @@ while [ -n "$1" ]; do # while loop starts
 
 	case "$1" in
 
-	-clip) ffmpeg -ss $2 -to $3 -i "$(youtube-dl -f best --get-url $url_test)" -c:v copy -c:a copy out.mp4 ;;
+	-clip) ffmpeg -ss $3 -to $4 -i "$(youtube-dl -f best --get-url $2)" -c:v copy -c:a copy $5.mp4 ;;
 
 	-b)
 		param="$2"
