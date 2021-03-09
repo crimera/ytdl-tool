@@ -8,7 +8,7 @@ while [ -n "$1" ]; do # while loop starts
         ;;
         
 	-title)
-		youtube-dl --get-title
+		youtube-dl --get-title $1
 		
 		shift
 		;;
