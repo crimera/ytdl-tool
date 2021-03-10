@@ -30,8 +30,8 @@ while [ -n "$1" ]; do # while loop starts
     ;;
 
 	-title)
-	    test -z $url
-	    if (($? == 1)) then
+	
+	    if [ test -z $url ]; then
 
 	    	url=$2
 			youtube-dl --get-title $2
