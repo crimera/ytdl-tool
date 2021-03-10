@@ -1,4 +1,4 @@
-link=''
+link='https://youtu.be/b-BsFT7FWLE'
 
 while [ -n "$1" ]; do # while loop starts
 
@@ -6,30 +6,24 @@ while [ -n "$1" ]; do # while loop starts
 
 	-m)
 
-		thumb=true
+		thumb='true'
+		echo hi
 
 	;;
 
 	-clip)
-	    test -z $url
-		
-	    if (( $? == 0)) then
+
+	    if [ -z $url ]; then
 
 	    	url=$2
 
-			if (( $thumb == true )) then
+			echo $2 $3 $4 $5
 
-				ffmpeg -i "$(youtube-dl -f best --get-url $1)" -ss $2 $3 -i image.png -map 1 -map 0 -c copy -disposition:0 attached_pic $4.mp4
-
-			else 
-
-        		ffmpeg -ss $3 -to $4 -i "$(youtube-dl -f best --get-url $2)" -c:v copy -c:a copy $5.mp4
+        	ffmpeg -i "$(youtube-dl -f best --get-url $2)" -ss $3 -to $4 -c:v copy -c:a copy $5.mp4
 			
-			fi
-
         else
 
-        	ffmpeg -ss $2 -to $3 -i "$(youtube-dl -f best --get-url $url)" -c:v copy -c:a copy $4.mp4
+        	ffmpeg "$(youtube-dl -f best --get-url $url)" -ss $2 -to $3 -i -c:v copy -c:a copy $4.mp4
 
         fi
 	shift
