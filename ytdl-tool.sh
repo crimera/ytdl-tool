@@ -4,18 +4,12 @@ while [ -n "$1" ]; do # while loop starts
 
 	case "$1" in
 
-	-m)
-
-		thumb='true'
-		echo hi
-
-	;;
-
+	# Clip option
 	-clip)
 
-	    if [ -z $url ]; then
+	    if [ -z $url ]; then # Check if the url is already set
 
-	    	url=$2
+	    	url=$2 #Sets the url
 
 			echo $2 $3 $4 $5
 
@@ -26,10 +20,50 @@ while [ -n "$1" ]; do # while loop starts
         	ffmpeg "$(youtube-dl -f best --get-url $url)" -ss $2 -to $3 -i -c:v copy -c:a copy $4.mp4
 
         fi
-	shift
+
     ;;
 
-	-title)
+	-audio)
+
+		if [ -z  $url ]; then
+
+			url=$2
+			title=$(youtube-dl --get-title $2)
+			youtube-dl -f bestaudio $2 -o "%(title)s.%(ext)s"
+
+			youtube-dl $2 --write-thumbnail --skip-download -o "$title.%(ext)s"
+
+			ffmpeg -i "$title.webp" "$title.jpg"
+
+			mkvextract "$title.webm" tracks 0:"$title.opus"
+
+			kid3-cli -c "set picture:'$title.jpg' 'Thumbnail'" "$title.opus"
+
+			rm "$title.webm"
+			rm "$title.webp"
+			rm "$title.jpg"
+		
+		fi
+
+	shift
+	;;
+	
+	-music)
+
+		if [ -z $url ]; then
+			
+			url=$2
+
+			youtube-dl -f bestaudio[ext=m4a] $2 --embed-thumbnail --add-metadata
+		
+		else 
+		 	youtube-dl -f bestaudio[ext=m4a] $url --embed-thumbnail --add-metadata
+		fi
+		
+	shift
+	;;
+
+	-title) # Gets the title of the video 
 	
 	    if [ test -z $url ]; then
 
@@ -45,10 +79,10 @@ while [ -n "$1" ]; do # while loop starts
 	;;
 		
 	--)
-		shift # The double dash makes them parameters
+	shift # The double dash makes them parameters
 
-		break
-		;;
+	break
+	;;
 		
 	esac
 
