@@ -1,5 +1,5 @@
 #!/bin/bash
-
+# test
 # Config
 clips_folder="~/Clips/" # Folder to save clips to
 
