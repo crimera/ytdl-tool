@@ -52,13 +52,6 @@ while [ -n "$1" ]; do # while loop starts
 	shift
 	;;
 	
-	-video)
-	
-	    youtube-dl  $2 -f $3
-	
-	shift
-	;;
-	
 	-audio)
 
 		if [ -z $url ]; then
