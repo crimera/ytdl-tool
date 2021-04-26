@@ -29,6 +29,10 @@ while [ -n "$1" ]; do # while loop starts
 
 	# Clip option
 	-clip)
+	
+	    name=steven
+	    
+	    echo $name
 
 	    if [ -z $url ]; then # Check if the url is already set
 
