@@ -7,6 +7,26 @@ while [ -n "$1" ]; do # while loop starts
 
 	case "$1" in
 
+	-help)
+		if [ -z $2 ]; then
+		echo "commands -clip, -audio, -shorts"
+		fi
+		case $2 in 
+		clip)
+			echo "-clip \$url \$start \$end \$title"
+		shift
+		;;
+		audio)
+			echo "-audio url"
+		shift
+		break
+		;;
+		esac
+		shift
+
+	shift
+	;;
+
 	# Clip option
 	-clip)
 
@@ -16,45 +36,14 @@ while [ -n "$1" ]; do # while loop starts
 
 			echo $2 $3 $4 $5
 
-        	ffmpeg -i "$(youtube-dl -f best --get-url $2)" -ss $3 -to $4 -c:v copy -c:a copy $5.mp4
+        	ffmpeg -ss $3 -to $4 -i "$(youtube-dl -f best --get-url $2)" -c:v copy -c:a copy $5.mp4
 			
         else
 
         	ffmpeg "$(youtube-dl -f best --get-url $url)" -ss $2 -to $3 -i -c:v copy -c:a copy $4.mp4
-
-        fi
-
+	fi
+        shift
     ;;
-
-	-audio)
-
-		if [ -z  $url ]; then
-
-			title=$(youtube-dl -e $2 | tr -d '/')
-			thumb=$(youtube-dl --get-thumbnail $2)
-			
-			# Deprected Download audio
-			# python ~/Workspace/youtube-dl/youtube_dl/__main__.py -x -f bestaudio $2 -o "%(title)s.%(ext)s" --audio-format opus --embed-thumbnail
-
-			# Download Audio
-			youtube-dl -f bestaudio[ext=webm] $2 -o "$title-nothumb.%(ext)s";
-
-			# Adding the thumbnail
-			ffmpeg -i "$title-nothumb.webm" -i $thumb -map 0:0 -map 1:0 -acodec copy -id3v2_version 3 "$title.webm"
-			
-			# Extract opus
-			mkvextract "$title.webm" tracks 0:"$title.opus"
-
-			# Using kid3
-			kid3-cli -c "set picture:'$title.jpg' 'Thumbnail'" "$title.opus"
-
-			# Remove nothumb
-			rm "$title-nothumb.webm"
-
-		fi
-
-	shift
-	;;
 
 	-shorts)
 
@@ -63,16 +52,16 @@ while [ -n "$1" ]; do # while loop starts
 	shift
 	;;
 	
-	-music)
+	-audio)
 
 		if [ -z $url ]; then
 			
 			url=$2
 
-			youtube-dl -f bestaudio[ext=m4a] $2 --embed-thumbnail --add-metadata
+			youtube-dl -f bestaudio[ext=m4a] $2 -o "%(title)s.m4a" --embed-thumbnail --add-metadata
 		
 		else 
-		 	youtube-dl -f bestaudio[ext=m4a] $url --embed-thumbnail --add-metadata
+		 	youtube-dl -f bestaudio[ext=m4a] $url -o "%(title)s.m4a" --embed-thumbnail --add-metadata
 		fi
 		
 	shift
