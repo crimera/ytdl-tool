@@ -54,7 +54,7 @@ while [ -n "$1" ]; do # while loop starts
 	
 	-video)
 	
-	    youtube-dl -f $2 $3
+	    youtube-dl  $2 -f $3
 	
 	shift
 	;;
