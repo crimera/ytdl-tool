@@ -51,7 +51,7 @@ while [ -n "$1" ]; do # while loop starts
 
 	-shorts)
 
-		youtube-dl -f best $2 -o "$clips_folder%(title)s.%(ext)s"
+		youtube-dl -f best $2 -o "$%(title)s.%(ext)s"
 
 	shift
 	;;
