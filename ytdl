@@ -9,15 +9,19 @@ while [ -n "$1" ]; do # while loop starts
 
 	-help)
 		if [ -z $2 ]; then
-		echo "commands -clip, -audio, -shorts"
+		echo "commands -c, -a, -s, -r"
 		fi
 		case $2 in 
 		clip)
-			echo "-clip \$url \$start \$end \$title"
+			echo "-c \$url \$start \$end \$title"
+		shift
+		;;
+		shorts)
+		    echo "-s url"
 		shift
 		;;
 		audio)
-			echo "-audio url"
+			echo "-a url"
 		shift
 		break
 		;;
@@ -28,7 +32,7 @@ while [ -n "$1" ]; do # while loop starts
 	;;
 
 	# Clip option
-	-clip)
+	-c)
 	
 	    name=steven
 	    
@@ -49,14 +53,15 @@ while [ -n "$1" ]; do # while loop starts
         shift
     ;;
 
-	-shorts)
+	-s)
 
 		youtube-dl -f best $2 -o "$%(title)s.%(ext)s"
 
 	shift
 	;;
 	
-	-audio)
+	# Download Audio
+	-a)
 	
 		if [ -z $url ]; then
 			
@@ -70,16 +75,24 @@ while [ -n "$1" ]; do # while loop starts
 			    youtube-dl -f bestaudio[ext=m4a] $2 -o "%(title)s.m4a" --embed-thumbnail --add-metadata
 			fi
 		
-		else 
+		else
 		 	youtube-dl -f bestaudio[ext=m4a] $url -o "%(title)s.m4a" --embed-thumbnail --add-metadata
 		fi
 		
 	shift
 	;;
 	
+	# Download audio with release date
 	-r)
 	
-        addreleasedate=true
+	    if [ -z $url ]; then
+			
+			url=$2
+			youtube-dl -f bestaudio[ext=m4a] $2 -o "%(title)s-%(release_date)s.m4a" --embed-thumbnail --add-metadata
+		
+		else
+		 	youtube-dl -f bestaudio[ext=m4a] $url -o "%(title)s.m4a" --embed-thumbnail --add-metadata
+		fi
 	
 	shift
 	;;
