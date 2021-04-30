@@ -64,7 +64,11 @@ while [ -n "$1" ]; do # while loop starts
 			
 			if [ -z $addreleasedate ] then
 			
-			youtube-dl -f bestaudio[ext=m4a] $2 -o "%(title)s-%(release_date)s.m4a" --embed-thumbnail --add-metadata
+			    youtube-dl -f bestaudio[ext=m4a] $2 -o "%(title)s-%(release_date)s.m4a" --embed-thumbnail --add-metadata
+			
+			else
+			    youtube-dl -f bestaudio[ext=m4a] $2 -o "%(title)s.m4a" --embed-thumbnail --add-metadata
+			fi
 		
 		else 
 		 	youtube-dl -f bestaudio[ext=m4a] $url -o "%(title)s.m4a" --embed-thumbnail --add-metadata
