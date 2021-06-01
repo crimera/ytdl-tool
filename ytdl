@@ -81,10 +81,24 @@ while [ -n "$1" ]; do # while loop starts
 	    if [ -z $url ]; then
 			
 			url=$2
-			youtube-dl -f bestaudio[ext=m4a] $2 -o "%(title)s-%(upload_date)s.m4a" --embed-thumbnail --add-metadata
+			youtube-dl -f bestaudio[ext=m4a] $2 -o "$3%(channel)s/ [%(upload_date)s] %(title)s [%(channel)s] - %(id)s.m4a" --embed-thumbnail --add-metadata
 		
 		else
-		 	youtube-dl -f bestaudio[ext=m4a] $url -o "%(title)s-%(release_date)s.m4a" --embed-thumbnail --add-metadata
+			youtube-dl -f bestaudio[ext=m4a] $url -o "$3%(channel)s/[%(channel)s]%(title)s-%(upload_date)s[%(id)s].m4a" --embed-thumbnail --add-metadata
+		fi
+	
+	shift
+	;;
+
+	-ra)
+	
+	    if [ -z $url ]; then
+			
+			url=$2
+			youtube-dl --cookies coockies/youtube.com_cookies.txt -f bestaudio  $2 -o "$3%(channel)s/[%(upload_date)s] %(title)s [%(channel)s] - %(id)s.m4a" --embed-thumbnail --add-metadata
+
+		else
+			youtube-dl --cookies coockies/youtube.com_cookies.txt -f bestaudio  $url -o "$3%(channel)s/[%(upload_date)s] %(title)s [%(channel)s] - %(id)s.m4a" --embed-thumbnail --add-metadata
 		fi
 	
 	shift
