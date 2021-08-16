@@ -3,6 +3,7 @@ A youtube-dl script
 # Install
 
 Install ytdl-tool
+
 `curl https://raw.githubusercontent.com/crimera/ytdl-tool/main/ytdl -o  ~/.local/bin/ytdl`
 
 Optional - install termux-open-url
